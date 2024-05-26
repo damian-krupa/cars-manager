@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-// eslint-disable-next-line react/prop-types
 function AddCar({ onAdd }) {
   const [formData, setFormData] = useState({
     name: "",
@@ -30,9 +29,7 @@ function AddCar({ onAdd }) {
 
     fetch("http://localhost:3000/cars", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newCar),
     })
       .then((response) => response.json())

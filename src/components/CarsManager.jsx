@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import AddCar from "./AddCar";
+import Car from "./Car";
 
 const CarsManager = () => {
   const [cars, setCars] = useState([]);
 
   useEffect(() => {
-    debugger;
-    console.warn("fetch cars");
     fetch("http://localhost:3000/cars")
       .then((r) => r.json())
       .then((json) => {
@@ -31,16 +30,24 @@ const CarsManager = () => {
     setCars((prevCars) => [...prevCars, newCar]);
   };
 
+  const handleUpdateCar = (updatedCar) => {
+    setCars((prevCars) =>
+      prevCars.map((car) => (car.id === updatedCar.id ? updatedCar : car)),
+    );
+  };
+
   return (
     <>
       <AddCar onAdd={handleAddCar} />
       <div>
         <ul>
           {cars.map((car) => (
-            <li key={car.id}>
-              <strong>{`${car.brand} ${car.name} - ${car.engine.type}, ${car.engine.hp} KM`}</strong>
-              <button onClick={() => handleSellCar(car.id)}>Sprzedany</button>
-            </li>
+            <Car
+              key={car.id}
+              car={car}
+              onDelete={handleSellCar}
+              onUpdate={handleUpdateCar}
+            />
           ))}
         </ul>
       </div>
