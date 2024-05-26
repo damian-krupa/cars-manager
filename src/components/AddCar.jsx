@@ -51,7 +51,7 @@ function AddCar({ onAdd }) {
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div>
         <label>Nazwa: </label>
         <input
@@ -92,9 +92,7 @@ function AddCar({ onAdd }) {
           required
         />
       </div>
-      <button type="submit" onSubmit={handleSubmit}>
-        Dodaj samochód
-      </button>
+      <button type="submit">Dodaj samochód</button>
     </form>
   );
 }
